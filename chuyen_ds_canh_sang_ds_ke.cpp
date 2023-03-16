@@ -130,9 +130,9 @@ int main() {
 	while(t--){
 	int n;
 	cin >> n;
-//	ma_tran_ke(n);
+	ma_tran_ke(n);
 //	ds_ke(n);
-	ds_canh(n);		
+//	ds_canh(n);		
 	}
 
 }
