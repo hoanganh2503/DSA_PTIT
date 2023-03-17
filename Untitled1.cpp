@@ -1,34 +1,40 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-const int MAXN = 1e5 + 5;
-int n, a[MAXN], ans = 10;
+int n, arr[1000], k = 1, check = 1;
 
-double calcAvg(int start, int end) {
-    double sum = 0;
-    for (int i = start; i <= end; i++) {
-        sum += a[i];
-    }
-    return sum / (end - start + 1);
+void show(){
+	int l = 0;
+	long long s = 0;
+	for(int i = 1 ; i <= k ; i++){
+		s = s*10 + arr[i];
+		if(arr[i] == 1) l++;
+	}
+	if(l==k) k++;
+	if(s % n == 0 && s > 0){
+		cout << s;
+		check = 0;
+	}
+	cout << endl;
 }
 
-void solve(int start, int end) {
-    if (end - start + 1 > ans) {
-        double avg = calcAvg(start, end);
-        if (avg > calcAvg(end-ans+1, end)) {
-            ans = end - start + 1;
-        }
-    }
-    for (int i = end + 1; i < n; i++) {
-        solve(end + 1, i);
-    }
+void handle(int i){
+		for(int j = 0 ; j <= 1 ; j++){
+		arr[i] = j;
+		if(i == k){
+			show();
+		}else handle(i+1);
+
+	}
 }
 
 int main() {
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
-    solve(0, -1);
-    cout << ans << endl;
+	int t;
+	cin >> t;
+	while(t--){
+	    cin >> n;
+	    while(check){
+		handle(1);	
+		}
+	}
     return 0;
 }
