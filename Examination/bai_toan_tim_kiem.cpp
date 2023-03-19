@@ -12,6 +12,19 @@ int main() {
 	int t ;
 	cin >> t;
 	while(t--){
-
+		int n, s, k;
+		cin >> n >> s >> k;
+		int arr[n];
+		f(i, 0, n-1) cin >> arr[i];
+		int l = s-1, check = 1;
+		ll sum = 0;
+		while(check && l > 0){
+			sum += arr[l];
+			if(sum < k){
+				l--;
+			}else check = 0;
+		}
+		if(l == s-1) cout << -1 << endl;
+		else cout << l + 1<< endl;
 	}
 }

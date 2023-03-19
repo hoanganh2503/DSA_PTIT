@@ -7,11 +7,11 @@
 #define all(x) x.begin(), x.end()
 
 using namespace std;
+// This file named 'nohope' :>
+
+// This code is created to described my hopelessness
+// because it so difficult for me or I don't smart enough
 
 int main() {
-	int t ;
-	cin >> t;
-	while(t--){
-
-	}
+	cout << "Kho qua thay/co oi :(" << endl;
 }
