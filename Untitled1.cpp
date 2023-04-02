@@ -1,40 +1,27 @@
-#include <iostream>
+#include<bits/stdc++.h>
+#include<vector>
+#define ll long long
+#define f(i,a,b) for(int i = a ; i <= b ; i++)
+#define f_(i,a,b) for(int i = a ; i >= b ; i--)
+#define F(i,a,b) for(int i = a ; i < b ; i++)
+#define memset(arr, n) memset(arr, n, sizeof(arr));
+#define all(x) x.begin(), x.end()
+
 using namespace std;
-int n, arr[1000], k = 1, check = 1;
-
-void show(){
-	int l = 0;
-	long long s = 0;
-	for(int i = 1 ; i <= k ; i++){
-		s = s*10 + arr[i];
-		if(arr[i] == 1) l++;
-	}
-	if(l==k) k++;
-	if(s % n == 0 && s > 0){
-		cout << s;
-		check = 0;
-	}
-	cout << endl;
-}
-
-void handle(int i){
-		for(int j = 0 ; j <= 1 ; j++){
-		arr[i] = j;
-		if(i == k){
-			show();
-		}else handle(i+1);
-
-	}
-}
 
 int main() {
-	int t;
-	cin >> t;
-	while(t--){
-	    cin >> n;
-	    while(check){
-		handle(1);	
+	ll p,q;
+    cin >> p >> q;
+	ll z = 0;
+	while(true){
+		if(q % p == 0){
+			cout << "1/" << q/p << endl;
+			break;
 		}
+		z = q/p + 1;
+		cout << "1/" << z << " + ";
+		p = z*p - q;
+		q*= z;	
 	}
-    return 0;
 }
+

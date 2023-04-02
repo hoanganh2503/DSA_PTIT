@@ -9,10 +9,27 @@
 
 using namespace std;
 
+int L, R;
+
+int sang(int n){
+	int ans = 0;
+	f(i, 2, sqrt(n)){
+		if(n % i == 0){
+			ans = i;
+			while(n % i == 0) n/= i;
+		}
+	}
+	if(n != 1) ans = n;
+	return ans;
+}
+
 int main() {
 	int t ;
 	cin >> t;
 	while(t--){
-
+		cin >> L >> R;
+		ll ans = 0;
+		f(i, L, R) ans += sang(i);
+		cout << ans << endl;
 	}
 }

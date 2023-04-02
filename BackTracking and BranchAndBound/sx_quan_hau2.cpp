@@ -26,6 +26,7 @@ void handle(int i) {
 int main() {
 	int t;
 	cin >> t;
+	int z = 1;
 	while(t--) {
 		for(int i = 1 ; i <= 100 ; i ++)
 			cot[i] = d1[i] = d2[i] = 1;	
@@ -34,6 +35,7 @@ int main() {
 			cin >> a[i][j];
 		}	
 		handle(1);
+		cout << "Test " << z++ << ": ";
 		cout << sum << endl;
 	}
 }

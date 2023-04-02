@@ -18,13 +18,14 @@ int main() {
 		f(i, 0, n-1) cin >> arr[i];
 		int l = s-1, check = 1;
 		ll sum = 0;
-		while(check && l > 0){
-			sum += arr[l];
-			if(sum < k){
+		while(check && l >= 0){
+			cout << sum << " ";
+			if(sum + arr[l] <= k){
+				sum += arr[l];
 				l--;
 			}else check = 0;
 		}
 		if(l == s-1) cout << -1 << endl;
-		else cout << l + 1<< endl;
+		else cout << l + 1 << endl;
 	}
 }
