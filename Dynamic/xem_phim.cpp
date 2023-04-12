@@ -12,22 +12,18 @@
 using namespace std;
 
 int main() {
-	int t ;
-	cin >> t;
-	while(t--){
-		int n, s;
-		cin >> n >> s;
-		int arr[n], dp[40001];
-		memset(arr, 0);
+		int b, n;
+		cin >> b >> n;
+		int arr[n+1], dp[n+1][b+1];
 		memset(dp, 0);
-		F(i, 1, n) cin >> arr[i];
-		dp[0] = 1;
-		f(i, 0, n-1){
-			for(int j = s; j >=arr[i] ; j--){
-				if(dp[j] == 0 and dp[j-arr[i]] == 1) dp[j] = 1;
+		f(i, 1, n) cin >> arr[i];
+		f(i, 1, n){
+			f(j, 1, b){
+				dp[i][j] = dp[i-1][j];
+				if(arr[i] < j){
+					dp[i][j] = max(dp[i][j], dp[i-1][j-arr[i]]+arr[i]);
+				}
 			}
 		}
-		if(dp[s]) cout << "YES" << endl;
-		else cout << "NO" << endl;
-	}
+		cout << dp[n][b] << endl;
 }

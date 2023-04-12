@@ -8,6 +8,7 @@
 #define all(x) x.begin(), x.end()
 #define sz size()
 #define pb(x) push_back(x)
+const ll mod = 1e9 + 7;
 
 using namespace std;
 
@@ -15,19 +16,15 @@ int main() {
 	int t ;
 	cin >> t;
 	while(t--){
-		int n, s;
-		cin >> n >> s;
-		int arr[n], dp[40001];
-		memset(arr, 0);
-		memset(dp, 0);
-		F(i, 1, n) cin >> arr[i];
-		dp[0] = 1;
-		f(i, 0, n-1){
-			for(int j = s; j >=arr[i] ; j--){
-				if(dp[j] == 0 and dp[j-arr[i]] == 1) dp[j] = 1;
+		int n, k = 3;
+		cin >> n;
+		ll dp[n+5] = {0};
+		dp[0] = dp[1] = 1;
+		f(i, 2, n){
+			f(j, 1, min(i, k)){
+				dp[i] += dp[i-j];
 			}
 		}
-		if(dp[s]) cout << "YES" << endl;
-		else cout << "NO" << endl;
+		cout << dp[n] << endl;
 	}
 }

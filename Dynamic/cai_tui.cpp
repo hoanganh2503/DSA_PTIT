@@ -6,8 +6,6 @@
 #define F(i,a,b) for(int i = a ; i < b ; i++)
 #define memset(arr, n) memset(arr, n, sizeof(arr));
 #define all(x) x.begin(), x.end()
-#define sz size()
-#define pb(x) push_back(x)
 
 using namespace std;
 
@@ -15,19 +13,21 @@ int main() {
 	int t ;
 	cin >> t;
 	while(t--){
-		int n, s;
-		cin >> n >> s;
-		int arr[n], dp[40001];
-		memset(arr, 0);
+		int n, V;
+		cin >> n >> V;
+		int w[n+1], v[n+1];
+		f(i, 1, n) cin >> w[i];
+		f(i, 1, n) cin >> v[i];
+		int dp[n+1][V+1];
 		memset(dp, 0);
-		F(i, 1, n) cin >> arr[i];
-		dp[0] = 1;
-		f(i, 0, n-1){
-			for(int j = s; j >=arr[i] ; j--){
-				if(dp[j] == 0 and dp[j-arr[i]] == 1) dp[j] = 1;
+		f(i, 1, n){
+			f(j, 1, V){
+				dp[i][j] =dp[i-1][j];
+				if(j >= w[i]){
+					dp[i][j] = max(dp[i-1][j], v[i] + dp[i-1][j-w[i]]);
+				}
 			}
-		}
-		if(dp[s]) cout << "YES" << endl;
-		else cout << "NO" << endl;
+		}	
+		cout << dp[n][V] << endl;
 	}
 }

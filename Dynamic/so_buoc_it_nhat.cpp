@@ -15,19 +15,18 @@ int main() {
 	int t ;
 	cin >> t;
 	while(t--){
-		int n, s;
-		cin >> n >> s;
-		int arr[n], dp[40001];
+		int n;
+		cin >> n;
+		int arr[n], a[n], ans = 0;
 		memset(arr, 0);
-		memset(dp, 0);
-		F(i, 1, n) cin >> arr[i];
-		dp[0] = 1;
-		f(i, 0, n-1){
-			for(int j = s; j >=arr[i] ; j--){
-				if(dp[j] == 0 and dp[j-arr[i]] == 1) dp[j] = 1;
+		memset(a, 0);
+		F(i, 0, n) cin >> arr[i];
+		F(i, 0, n){
+			F(j, 0, i){
+				if(arr[i] >= arr[j]) a[i] = max(a[j]+1, a[i]);
 			}
+			ans = max(a[i], ans);
 		}
-		if(dp[s]) cout << "YES" << endl;
-		else cout << "NO" << endl;
+		cout << n - ans - 1 << endl;
 	}
 }

@@ -12,22 +12,16 @@
 using namespace std;
 
 int main() {
-	int t ;
-	cin >> t;
-	while(t--){
-		int n, s;
-		cin >> n >> s;
-		int arr[n], dp[40001];
-		memset(arr, 0);
-		memset(dp, 0);
-		F(i, 1, n) cin >> arr[i];
-		dp[0] = 1;
-		f(i, 0, n-1){
-			for(int j = s; j >=arr[i] ; j--){
-				if(dp[j] == 0 and dp[j-arr[i]] == 1) dp[j] = 1;
-			}
-		}
-		if(dp[s]) cout << "YES" << endl;
-		else cout << "NO" << endl;
+	int n, q;
+	cin >> n >> q;
+	int arr[n+1] = {0};
+	f(i, 1, q){
+		int a, b;
+		cin >> a >> b;
+		f(i, a, b) arr[i]++;
+	}
+	f(i, 1, n){
+		if(arr[i] % 2 == 0) cout << 0 << ' ';
+		else cout << 1 << ' ';
 	}
 }

@@ -14,20 +14,26 @@ using namespace std;
 int main() {
 	int t ;
 	cin >> t;
+	cin.ignore();
 	while(t--){
-		int n, s;
-		cin >> n >> s;
-		int arr[n], dp[40001];
-		memset(arr, 0);
-		memset(dp, 0);
-		F(i, 1, n) cin >> arr[i];
-		dp[0] = 1;
-		f(i, 0, n-1){
-			for(int j = s; j >=arr[i] ; j--){
-				if(dp[j] == 0 and dp[j-arr[i]] == 1) dp[j] = 1;
-			}
+		string s;
+		cin >> s;
+		if(s[0] == '0'){
+			cout << 0 << endl;
+			continue;
 		}
-		if(dp[s]) cout << "YES" << endl;
-		else cout << "NO" << endl;
+		int n = s.sz;
+		int dp[n+1];
+		memset(dp, 0);	
+		dp[0] = dp[1] = 1;
+		f(i, 2, n){
+			dp[i] = 0;
+			if(s[i-1] > '0'){
+				dp[i] = dp[i-1];
+			}
+			if(s[i-2] == '1' or (s[i-2] == '2' and s[i-1] <'7' ))
+				dp[i] += dp[i-2];
+		}
+		cout << dp[n] << endl;
 	}
 }

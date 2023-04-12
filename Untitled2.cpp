@@ -1,41 +1,131 @@
-#include<bits/stdc++.h>
-#define ll long long
+#include<iostream>
+
+#include <conio.h>
+
+#define MAX  100
+
+#define TRUE 1
+
+#define FALSE 0
 
 using namespace std;
 
-int n, arr[100];
+int G[MAX][MAX], n, chuaxet[MAX], QUEUE[MAX], solt,i;
 
-void show() {
-	for(int i = 1 ; i <= n ; i++)
-		if(arr[i] == 0) cout << 6;
-		else cout << 8;
-	cout << " ";
+
+void Init(){
+
+
+ cin>>n;
+
+ cout<<" so dinh cua do thi n = "<<n;
+
+ //nhập ma trận kề của đồ thị.
+
+ for(int i=1; i<=n;i++){
+
+  for(int j=1; j<=n;j++){
+
+   cin>>G[i][j];
+
+  }
+
+ }
+
+ //Khởi tạo giá trị ban đầu cho mảng chuaxet.
+
+ for(int i=1; i<=n;i++)
+
+  chuaxet[i]=0;
+
+ solt=0;
+
 }
 
-int check1(int *arr, int n) {
-	for(int i = 1 ; i <= n/2 ; i++){
-		if(arr[i] != arr[n-i+1]) return 0;;
-	}
-	return 1;
+void Result(int *chuaxet, int n, int solt){
+
+ if(solt==1){
+
+  printf("\n Do thi la lien thong");
+
+  getch(); return;
+
+ }
+
+ for(int i=1; i<=solt;i++){
+
+  printf("\n Thanh phan lien thong thu %d:",i);
+
+  for(int j=1; j<=n;j++){
+
+   if( chuaxet[j]==i)
+
+    printf("%3d", j);
+
+  }
+
+ }
+
 }
 
-void Try(int i){
-	for(int j = 0 ; j <= 1 ; j++){
-		arr[i] = j;
-		if(i == n) {
-			if(check1(arr, n)){
-			show();
-			}
-		}else Try(i+1);
-	}
+/* Breadth First Search */
+
+void BFS(int G[][MAX], int n, int i, int *solt, int chuaxet[], int QUEUE[MAX]){
+
+ int u, dauQ, cuoiQ, j;
+
+ dauQ=1; cuoiQ=1;
+
+ QUEUE[cuoiQ]=i;chuaxet[i]=*solt;
+
+ while(dauQ<=cuoiQ){
+
+  u=QUEUE[dauQ];
+
+  dauQ=dauQ+1;
+
+  for(j=1; j<=n;j++){
+
+   if(G[u][j]==1 && chuaxet[j]==0){
+
+    cuoiQ=cuoiQ+1;
+
+    QUEUE[cuoiQ]=j;
+
+    chuaxet[j]=*solt;
+
+   }
+
+  }
+
+ }
+
 }
 
-int main(){
-	int t;
-	cin >> t;
-	while(t--){
-		cin >> n;
-		Try(1);
-		cout << endl;
-	}
+void Lien_Thong(void){
+
+ Init();
+
+ for(i=1; i<=n; i++)
+
+  if(chuaxet[i]==0){
+
+   solt=solt+1;
+
+   BFS(G, n, i, &solt, chuaxet, QUEUE);
+
+  }
+
+  Result(chuaxet, n, solt);
+
+  _getch();
+
+}
+
+int main(void){
+
+ Lien_Thong();
+
+ return 0;
+
 }
