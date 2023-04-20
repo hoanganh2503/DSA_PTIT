@@ -11,16 +11,13 @@ using namespace std;
 
 vector<int> arr[1001];
 int n, m, x;
-// Mang visited danh dau nhung dinh da duoc tham roi
 bool visited[1001] = {0};
 
 void BFS(int u){
-	// Khoi tao danh sach hang doi
 	queue<int> q;
 	q.push(u);
 	visited[u] = true;
 	while(!q.empty()){
-		// Lay ra phan tu dau hang doi
 		int v = q.front();
 		q.pop();	
 		cout << v << ' ';
@@ -40,7 +37,6 @@ int main() {
 		memset(arr, false);
 		memset(visited, 0);
 		cin >> n >> m >> x;
-		// Nhap danh sach canh
 		f(i, 0, m-1){
 			int a, b;
 			cin >> a >> b;

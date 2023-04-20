@@ -12,9 +12,29 @@
 using namespace std;
 
 int main() {
-	int t = 1;
+	int t = 1, k;
 	cin >> t;
 	while(t--){
-		cout << pow(9, 100) << endl;
+		priority_queue<ll> q;
+		map<char, int> mp;
+		string s;
+		cin >> k >> s;
+		f(i, 0, s.sz-1){
+			mp[s[i]] ++;
+		}
+		for(auto it:mp){
+			q.push(it.second);
+		}
+		while(k--){
+			int top = q.top()-1;
+			q.pop();
+			q.push(top);
+		}
+		ll ans = 0;
+		while(!q.empty()){
+			ans += q.top() * q.top();
+			q.pop();
+		}
+		cout << ans << endl;
 	}
 }

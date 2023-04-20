@@ -15,6 +15,24 @@ int main() {
 	int t = 1;
 	cin >> t;
 	while(t--){
-		cout << pow(9, 100) << endl;
+		string s;
+		cin >> s;
+		ll n = s.sz;
+		s = "A" + s;
+		ll ans = 0;
+		f(i, 1, n) ans += s[i] - 48;
+		f(len, 2, n){
+			f(i, 1, n-len+1){
+				string str = "";
+				f(j, i, i+len-1){
+					str += s[j];
+				}
+				ll kq = 0;
+				f(i, 0, str.sz-1)
+					kq = kq*10 + str[i] - 48;
+				ans += kq;
+			}
+		}
+		cout << ans << endl;
 	}
 }

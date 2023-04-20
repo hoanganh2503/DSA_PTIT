@@ -12,9 +12,22 @@
 using namespace std;
 
 int main() {
-	int t = 1;
+	int t ;
 	cin >> t;
 	while(t--){
-		cout << pow(9, 100) << endl;
+		string s;
+		cin >> s;
+		stack<string> st;
+		f_(i, s.sz-1, 0){
+			if(s[i] == '+' or s[i] == '-' or s[i] == '*' or s[i] == '/'){
+				string f = st.top();
+				st.pop();
+				string se = st.top();
+				st.pop();
+				st.push("(" + f + s[i] + se + ")");
+			}else st.push(string(1, s[i]));
+		}
+		cout << st.top() << endl;
 	}
 }
+

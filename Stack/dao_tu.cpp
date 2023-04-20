@@ -6,34 +6,27 @@
 #define F(i,a,b) for(int i = a ; i < b ; i++)
 #define memset(arr, n) memset(arr, n, sizeof(arr));
 #define all(x) x.begin(), x.end()
-
+#define sz size()
+#define pb(x) push_back(x)
 
 using namespace std;
 
-vector<int> arr[1001];
-int n, m, x, visited[1001] = {0}; 
-
-void DFS(int u){
-	cout << u << " ";
-	visited[u] = true;
-	for(auto x:arr[u]) {
-		if(!visited[x]) DFS(x);
-	}
-}
-
 int main() {
-	int t;
+	int t ;
 	cin >> t;
+	cin.ignore();
 	while(t--){
-		memset(arr, false);
-		memset(visited, 0);
-		cin >> n >> m >> x;
-		f(i, 0, m-1){
-			int a, b;
-			cin >> a >> b;
-			arr[a].push_back(b);
+		string s;
+		getline(cin, s);
+		string arr[1000];
+		int cnt = 0;
+		stringstream ss(s);
+		string token;
+		while(ss >> token){
+			arr[cnt] = token;
+			cnt++;
 		}
-		DFS(x);	
-		cout << endl;	
+		f_(i, cnt-1, 0) cout << arr[i] << ' ';
+		cout << endl;
 	}
 }

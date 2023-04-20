@@ -13,8 +13,24 @@ using namespace std;
 
 int main() {
 	int t = 1;
-	cin >> t;
+//	cin >> t;
 	while(t--){
-		cout << pow(9, 100) << endl;
+		int n;
+		cin >> n;
+		string s;
+		queue<int> q;
+		while(n--){
+			cin >> s;	
+			if(s == "PUSH"){
+				int k; cin >> k;
+				q.push(k);				
+			}
+			else if(s == "PRINTFRONT"){
+				if(q.empty()) cout << "NONE" << endl;
+				else cout << q.front() << endl;				
+			}else{
+				if(!q.empty()) q.pop();				
+			}
+		}
 	}
 }

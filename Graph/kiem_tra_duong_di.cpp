@@ -7,35 +7,37 @@
 #define memset(arr, n) memset(arr, n, sizeof(arr));
 #define all(x) x.begin(), x.end()
 
-
 using namespace std;
 
 vector<int> arr[1001];
-int n, m, visited[1001] = {0}, previ[1001]; 
+int n, m, previ[1001];
+bool visited[1001] = {0};
 
-void DFS(int u, int y){
-	if(visited[y]) return;	
+void BFS(int u, int y){
+	memset(visited, 0);
+	memset(previ, 0);
+	queue<int> q;
+	q.push(u);
 	visited[u] = true;
-	for(auto x:arr[u]) {
-		if(!visited[x]){
-			previ[x] = u;
-			DFS(x, y);
-		} 
+	while(!q.empty()){
+		if(visited[y]) break;
+		int v = q.front();
+		q.pop();	
+		for(auto x:arr[v]){
+			if(!visited[x]){
+				q.push(x);
+				visited[x] = true;
+				previ[x] = v;
+			}
+		}
 	}
 }
 
 void path(int x, int y){
-	if(!visited[y]){
-		cout << -1 << endl;
-		return;
+	if(visited[y]){
+		cout << "YES" << endl;
 	}
-	int a = previ[y], ax[1001], l = 0;
-	ax[l++] = y;
-	while(a != previ[x]){
-		ax[l++] = a;
-		a = previ[a];
-	}
-	f_(i, l-1, 0) cout << ax[i] << ' ';
+	else cout << "NO" << endl;
 }
 
 int main() {
@@ -43,18 +45,20 @@ int main() {
 	cin >> t;
 	while(t--){
 		memset(arr, false);
-		memset(visited, 0);
 		int x, y;
-		cin >> n >> m >> x >> y;
-		// Nhap danh sach canh
+		cin >> n >> m;
 		f(i, 0, m-1){
 			int a, b;
 			cin >> a >> b;
 			arr[a].push_back(b);
-		}
-		DFS(x, y);	
-		path(x, y);
-		cout << endl;	
+		}	
+		int q;
+		cin >> q;
+		while(q--){
+			cin >> x >> y;
+			BFS(x, y);
+			path(x, y);
+		}	
+		cout << endl;
 	}
-
 }

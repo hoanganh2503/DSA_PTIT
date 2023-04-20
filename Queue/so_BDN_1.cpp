@@ -10,43 +10,34 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-bool used[1001] = {false};
-vector<int> adj[1001];
-int m, n, u;
 
-void BFS(int u){
-	queue<int> q;
-	q.push(u);
-	used[u] = true;
+void show(queue<ll> q){
 	while(!q.empty()){
-		int top = q.front();
+		cout << q.front() << ' ';
 		q.pop();
-		cout << top << ' ';
-		used[top] = true;
-		for(auto v:adj[top]){
-			if(!used[v]){
-				q.push(v);
-				used[v] = true;	
-			}
-			
-		}
 	}
+	cout << endl;
 }
 
 int main() {
 	int t = 1;
 	cin >> t;
 	while(t--){
-		memset(used, false);
-		memset(adj, 0);
-		cin >> n >> m >> u;
-		f(i, 1, m){
-			int a, b;
-			cin >> a >> b;
-			adj[a].pb(b);
-			adj[b].pb(a);
+		string s;
+		cin >> s;
+		int length = s.sz-1;
+		int k = 0;
+		while(1){
+			if(s[k] >= '2'){
+				break;
+			}
+			k++;
 		}
-		BFS(u);
-		cout << endl;
+		f(i, k, length) s[i] = '1';
+		ll ans = 0, l = 0;
+		f_(i, length , 0){
+			ans += (s[i] - 48)*pow(2, l++);
+		}
+		cout << ans << endl;
 	}
 }

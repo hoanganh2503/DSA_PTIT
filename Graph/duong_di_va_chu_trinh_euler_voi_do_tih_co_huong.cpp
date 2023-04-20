@@ -6,34 +6,31 @@
 #define F(i,a,b) for(int i = a ; i < b ; i++)
 #define memset(arr, n) memset(arr, n, sizeof(arr));
 #define all(x) x.begin(), x.end()
-
+#define sz size()
+#define pb(x) push_back(x)
 
 using namespace std;
-
-vector<int> arr[1001];
-int n, m, x, visited[1001] = {0}; 
-
-void DFS(int u){
-	cout << u << " ";
-	visited[u] = true;
-	for(auto x:arr[u]) {
-		if(!visited[x]) DFS(x);
-	}
-}
+int n, m, deg[1001], deg1[1001];
 
 int main() {
-	int t;
+	int t = 1;
 	cin >> t;
 	while(t--){
-		memset(arr, false);
-		memset(visited, 0);
-		cin >> n >> m >> x;
-		f(i, 0, m-1){
+		memset(deg, 0)
+		memset(deg1, 0)
+		cin >> n >> m;
+		f(i, 1, m){
 			int a, b;
 			cin >> a >> b;
-			arr[a].push_back(b);
+			deg[a]++;
+			deg1[b]++;
 		}
-		DFS(x);	
-		cout << endl;	
+		int cnt = 0;
+		f(i, 1, n){
+			if(deg1[i] == deg[i])
+				cnt++;
+		}
+		if(cnt == n) cout << 1 << endl;
+		else cout << 0 << endl;
 	}
 }

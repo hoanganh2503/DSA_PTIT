@@ -6,34 +6,27 @@
 #define F(i,a,b) for(int i = a ; i < b ; i++)
 #define memset(arr, n) memset(arr, n, sizeof(arr));
 #define all(x) x.begin(), x.end()
-
+#define sz size()
+#define pb(x) push_back(x)
 
 using namespace std;
 
-vector<int> arr[1001];
-int n, m, x, visited[1001] = {0}; 
-
-void DFS(int u){
-	cout << u << " ";
-	visited[u] = true;
-	for(auto x:arr[u]) {
-		if(!visited[x]) DFS(x);
-	}
-}
-
 int main() {
-	int t;
+	int t ;
 	cin >> t;
 	while(t--){
-		memset(arr, false);
-		memset(visited, 0);
-		cin >> n >> m >> x;
-		f(i, 0, m-1){
-			int a, b;
-			cin >> a >> b;
-			arr[a].push_back(b);
+		cin.ignore();
+		string a, b;
+		cin >> a >> b;
+		int n = a.sz, m = b.sz;
+		int dp[n+1][m+1];
+		memset(dp, 0);
+		f(i, 1, n){
+			f(j, 1, m){
+				if(a[i-1] == b[j-1]) dp[i][j] = dp[i-1][j-1] + 1;
+				else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+			}	
 		}
-		DFS(x);	
-		cout << endl;	
+		cout <<dp[n][m] << endl;
 	}
 }

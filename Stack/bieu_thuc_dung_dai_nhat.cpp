@@ -11,10 +11,28 @@
 
 using namespace std;
 
+void show(stack<char> st){
+	stack<char> st2 = st;
+	while(!st2.empty()){
+		cout << st2.top();
+		st2.pop();
+	}
+	cout << endl;
+}
+
 int main() {
-	int t = 1;
+	int t ;
 	cin >> t;
 	while(t--){
-		cout << pow(9, 100) << endl;
+		string s;
+		cin >> s;
+		stack<char> st;
+		f(i, 0, s.sz-1){
+			if(s[i] == ')'){
+				if(!st.empty() and st.top() == '(') st.pop();
+				else st.push(s[i]);
+			}else st.push(s[i]); 
+		}
+		cout <<	s.sz - st.sz << endl;
 	}
 }

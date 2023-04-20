@@ -10,43 +10,54 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-bool used[1001] = {false};
+int n, m, used[1001];
 vector<int> adj[1001];
-int m, n, u;
 
-void BFS(int u){
-	queue<int> q;
-	q.push(u);
-	used[u] = true;
-	while(!q.empty()){
-		int top = q.front();
-		q.pop();
-		cout << top << ' ';
-		used[top] = true;
-		for(auto v:adj[top]){
-			if(!used[v]){
-				q.push(v);
-				used[v] = true;	
-			}
-			
+void DFS(int u){
+	used[u] = 1;
+	for(auto v:adj[u]){
+		if(!used[v])
+			DFS(v);
+	}
+}
+
+void tplt(){
+	int tplt = 0;
+	f(i, 1, n){
+		if(!used[i]){
+			tplt++;
+			DFS(i);
 		}
 	}
+	f(i, 1, n){
+		int dem = 0;
+		memset(used, 0);
+		used[i] = 1;
+		f(j, 1, n){
+			if(!used[j]){
+				dem++;
+				DFS(j);
+			}
+		}
+		if(dem > tplt) cout << i << ' ';
+	}
+	cout << endl;
+	
 }
 
 int main() {
 	int t = 1;
 	cin >> t;
 	while(t--){
-		memset(used, false);
+		memset(used, 0);
 		memset(adj, 0);
-		cin >> n >> m >> u;
+		cin >> n >> m;
 		f(i, 1, m){
 			int a, b;
 			cin >> a >> b;
-			adj[a].pb(b);
-			adj[b].pb(a);
+			adj[a].push_back(b);
+			adj[b].push_back(a);
 		}
-		BFS(u);
-		cout << endl;
+		tplt();
 	}
 }

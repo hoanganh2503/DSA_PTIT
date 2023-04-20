@@ -11,14 +11,37 @@
 using namespace std;
 
 vector<int> arr[1001];
-int n, m, x, visited[1001] = {0}; 
+int n, m, visited[1001] = {0}, previ[1001]; 
 
 void DFS(int u){
-	cout << u << " ";
+	if(visited[u]) return;	
 	visited[u] = true;
 	for(auto x:arr[u]) {
-		if(!visited[x]) DFS(x);
+		if(!visited[x]){
+			previ[x] = u;
+			DFS(x);
+		} 
 	}
+}
+
+void path(int x, int y){
+	if(!visited[y]){
+		cout << -1 << endl;
+		return;
+	}
+	vector<int> ans;
+	while(x != y){
+		if(!y){
+			cout << -1 << endl;
+			return;
+		}
+		ans.push_back(y);
+		y = previ[y];
+	}
+	ans.push_back(x);
+	reverse(all(ans));
+	for(auto it:ans) cout << it << ' ';
+	cout << endl;
 }
 
 int main() {
@@ -27,13 +50,18 @@ int main() {
 	while(t--){
 		memset(arr, false);
 		memset(visited, 0);
-		cin >> n >> m >> x;
+		int x, y;
+		cin >> n >> m >> x >> y;
+		// Nhap danh sach canh
 		f(i, 0, m-1){
 			int a, b;
 			cin >> a >> b;
 			arr[a].push_back(b);
+			arr[b].push_back(a);
 		}
 		DFS(x);	
+		path(x, y);
 		cout << endl;	
 	}
+
 }
