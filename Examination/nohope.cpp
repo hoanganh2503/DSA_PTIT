@@ -15,3 +15,5 @@ using namespace std;
 int main() {
 	cout << "Kho qua thay/co oi :(" << endl;
 }
+
+//23-4-2023 :> sao đề lần này khó thế ạ :>
