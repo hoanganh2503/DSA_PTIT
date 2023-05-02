@@ -1,20 +1,25 @@
-#include<bits/stdc++.h>
-#include<vector>
-#define ll long long
-#define f(i,a,b) for(int i = a ; i <= b ; i++)
-#define f_(i,a,b) for(int i = a ; i >= b ; i--)
-#define F(i,a,b) for(int i = a ; i < b ; i++)
-#define memset(arr, n) memset(arr, n, sizeof(arr));
-#define all(x) x.begin(), x.end()
-#define sz size()
-#define pb(x) push_back(x)
-
+#include <bits/stdc++.h>
 using namespace std;
-
-int main() {
-	int t = 1;
-	cin >> t;
+int main()
+{
+	int t;
+	cin>>t;
 	while(t--){
-		cout << pow(9, 100) << endl;
+		string s;
+		cin>>s;
+		stack <char> st;
+		int max=0;
+		for(int i=0;i<s.length();i++){
+			if(s[i]=='('){
+				st.push(s[i]);
+			}
+			else{// tuc la luc nay s[i]==')'
+				if(!st.empty()){
+					max+=2;
+					st.pop();
+				}
+			}	
+		}
+		cout<<max<<endl;
 	}
 }
