@@ -10,15 +10,22 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-int digit[12] = {2, 3, 5, 7, 2, 3, 5, 7, 2, 3, 5, 7};
+
+void show(queue<string> pq){
+	while(pq.sz){
+		cout << pq.front() << ' ';
+		pq.pop();
+	}
+	cout << endl;
+}
 
 int main() {
-	priority_queue<string> q;
-	priority_queue<string> pq;
+	queue<string> q;
+	queue<string> pq;
 	q.push("2357");
 	pq.push("2357");
-	while((q.top()).sz < 10){
-		string top = q.top();
+	while(q.front().sz < 10){
+		string top = q.front();
 		q.pop();
 		pq.push(top + "2");
 		pq.push(top + "3");
@@ -29,9 +36,15 @@ int main() {
 		q.push(top + "5");
 		q.push(top + "7");
 	}
-	while(pq.sz){
-		cout << pq.top() << ' ';
+	int n;
+	cin >> n;
+	while(pq.front().sz <= n){
+		string str = pq.front();
 		pq.pop();
+		sort(all(str));
+		do{
+			if(str[str.sz - 1] != '2') cout << str << endl;
+		}while(next_permutation(all(str)));
 	}
 	
 }

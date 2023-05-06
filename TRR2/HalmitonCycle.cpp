@@ -24,7 +24,7 @@ void halmiton(int k){
 		if((k == n+1) and y == x){
 			check = 1;
 			show();
-		} 
+		}
 		else if(used[y] == false){
 			path[k] = y;
 			used[y] = true;
