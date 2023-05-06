@@ -24,7 +24,7 @@ int main() {
 	queue<string> pq;
 	q.push("2357");
 	pq.push("2357");
-	while(q.front().sz < 10){
+	while(q.front().sz < 11){
 		string top = q.front();
 		q.pop();
 		pq.push(top + "2");
