@@ -14,20 +14,18 @@ using namespace std;
 int main() {
 	int t = 1;
 	cin >> t;
-	int dp[100001];
-	dp[1] = 0;
-	f(i, 2, 100000){
-		dp[i] = dp[i-1] + 1;
-		if(i % 3 == 0){
-			dp[i] = min(dp[i], dp[i/3] + 1);
-		}
-		if(i % 2 == 0){
-			dp[i] = min(dp[i], dp[i/2] + 1);
-		}
-	}
 	while(t--){
 		int n;
 		cin >> n;
-		cout << dp[n] << endl;
+		int arr[n], ans = n;
+		f(i, 0, n-1) cin >> arr[i];
+		sort(arr, arr+n);
+		for(int i = n/2 - 1, j = n-1 ; i >= 0 and j >= n/2; ){
+			if(arr[j] >= 2*arr[i]){
+				i--, j--;
+				ans --;
+			}else i --;
+		}
+		cout << ans << endl;
 	}
 }

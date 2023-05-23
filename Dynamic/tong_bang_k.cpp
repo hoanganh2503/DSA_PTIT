@@ -11,23 +11,26 @@
 
 using namespace std;
 
+const ll mod = 1e9 + 7;
+
 int main() {
 	int t = 1;
 	cin >> t;
-	int dp[100001];
-	dp[1] = 0;
-	f(i, 2, 100000){
-		dp[i] = dp[i-1] + 1;
-		if(i % 3 == 0){
-			dp[i] = min(dp[i], dp[i/3] + 1);
-		}
-		if(i % 2 == 0){
-			dp[i] = min(dp[i], dp[i/2] + 1);
-		}
-	}
 	while(t--){
-		int n;
-		cin >> n;
-		cout << dp[n] << endl;
+		int n, k;
+		cin >> n >> k;
+		int arr[n], dp[k+1];
+		f(i, 0, n-1) cin >> arr[i];
+		memset(dp, 0);
+		dp[0] = 1;
+		f(i, 1, k){
+			f(j, 0, n-1){
+				if(i >= arr[j]){
+					dp[i] = dp[i] + dp[i-arr[j]];
+					dp[i] %= mod;
+				}
+			}
+		}
+		cout << dp[k] << endl;
 	}
 }

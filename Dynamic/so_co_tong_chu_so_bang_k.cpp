@@ -14,20 +14,20 @@ using namespace std;
 int main() {
 	int t = 1;
 	cin >> t;
-	int dp[100001];
-	dp[1] = 0;
-	f(i, 2, 100000){
-		dp[i] = dp[i-1] + 1;
-		if(i % 3 == 0){
-			dp[i] = min(dp[i], dp[i/3] + 1);
-		}
-		if(i % 2 == 0){
-			dp[i] = min(dp[i], dp[i/2] + 1);
+	int mod = 1e9 + 7;
+	int dp[101][50005] = {};
+	f(i, 1, 9) dp[1][i] = 1;
+	f(i, 1, 100){
+		f(j, 0, 9){
+			f(z, j, 50000){
+				dp[i][z] += dp[i-1][z-j];
+				dp[i][z] %= mod;
+			}
 		}
 	}
 	while(t--){
-		int n;
-		cin >> n;
-		cout << dp[n] << endl;
+		int a, b;
+		cin >> a >> b;
+		cout << dp[a][b] << endl;
 	}
 }

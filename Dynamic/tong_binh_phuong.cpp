@@ -10,28 +10,31 @@
 #define pb(x) push_back(x)
 
 using namespace std;
+int dp[10001];
 
-int max_length(string s1, string s2){
-	int n1 = s1.sz, n2 = s2.sz;
-	int dp[n1+1][n2+1];
-	s1 = "0" + s1, s2 = "0" + s2;
-	f(i, 0, n1) dp[i][0] = i;
-	f(j, 0, n2) dp[0][j] = j;
-	f(i, 1, n1){
-		f(j, 1, n2){
-			if(s1[i] == s2[j]) dp[i][j] = dp[i-1][j-1];
-			else dp[i][j] = min({dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1});
+void init(){
+	dp[0] = 0;
+	dp[1] = dp[4] = 1;
+	dp[2] = 2;
+	dp[3] = 3;
+	f(i, 5, 10001){
+		dp[i] = i;
+		f(j, 1, ceil(sqrt(i))){
+			if(j*j > i) break;
+			else dp[i] = min(dp[i], 1 + dp[i-j*j]);
 		}
 	}
-	return dp[n1][n2];
+//	f(i, 0, 10001) cout << dp[i] << ' ';
+//	cout << endl;
 }
 
 int main() {
 	int t = 1;
 	cin >> t;
+	init();
 	while(t--){
-		string s1, s2;
-		cin >> s1 >> s2;
-		cout <<max_length(s1, s2)<< endl;
+		int n;
+		cin >> n;
+		cout << dp[n] << endl; 	
 	}
 }

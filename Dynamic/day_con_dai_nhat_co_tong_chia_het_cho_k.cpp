@@ -10,24 +10,23 @@
 #define pb(x) push_back(x)
 
 using namespace std;
+int n, k, sum;
+int arr[101];
+
+void handle(int i, int s){
+	if(s % k == 0)
+}
+
 
 int main() {
 	int t = 1;
 	cin >> t;
-	int dp[100001];
-	dp[1] = 0;
-	f(i, 2, 100000){
-		dp[i] = dp[i-1] + 1;
-		if(i % 3 == 0){
-			dp[i] = min(dp[i], dp[i/3] + 1);
-		}
-		if(i % 2 == 0){
-			dp[i] = min(dp[i], dp[i/2] + 1);
-		}
-	}
 	while(t--){
-		int n;
-		cin >> n;
-		cout << dp[n] << endl;
+		cin >> n >> k;
+		sum = 0;
+		memset(arr, 0);
+		f(i, 1, n) cin >> arr[i], sum += arr[i];
+		
+
 	}
 }

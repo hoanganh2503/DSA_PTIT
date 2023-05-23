@@ -11,27 +11,36 @@
 
 using namespace std;
 
-int max_length(string s1, string s2){
-	int n1 = s1.sz, n2 = s2.sz;
-	int dp[n1+1][n2+1];
-	s1 = "0" + s1, s2 = "0" + s2;
-	f(i, 0, n1) dp[i][0] = i;
-	f(j, 0, n2) dp[0][j] = j;
-	f(i, 1, n1){
-		f(j, 1, n2){
-			if(s1[i] == s2[j]) dp[i][j] = dp[i-1][j-1];
-			else dp[i][j] = min({dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1});
-		}
+int n, k, arr[1001];
+string s;
+char str[1001];
+
+void show(){
+	f(i, 0, k-1){
+		cout << arr[i];
 	}
-	return dp[n1][n2];
+	cout << endl;
 }
 
 int main() {
 	int t = 1;
 	cin >> t;
 	while(t--){
-		string s1, s2;
-		cin >> s1 >> s2;
-		cout <<max_length(s1, s2)<< endl;
+		cin >> s >> k;
+		n = s.sz;
+		int check = 1;
+		sort(all(s));
+		f(i, 0, n-1) str[i] = s[i], arr[i] = i+1;
+		set<string> s1;
+		while(check){
+			int l = k;
+			while(arr[l] == n-k+l) l--;
+			if(l){
+				arr[l] ++;
+				f(j, l+1, k) arr[j] = arr[j-1] + 1;
+				show();
+			}else check = 0;
+		}
+		
 	}
 }
