@@ -10,23 +10,24 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-int n, k, sum;
-int arr[101];
+const ll mod = 1e9 + 7;
 
-void handle(int i, int s){
-	if(s % k == 0)
+ll power(ll a, ll b){
+	if(b == 0) return 1;
+	if(b%2 == 0) return power(a, b/2)*power(a, b/2) % mod;
+	else return (power(a, b/2)*power(a, b/2) % mod)*a%mod;
 }
-
 
 int main() {
 	int t = 1;
 	cin >> t;
 	while(t--){
+		ll n, k, ans = 0;
 		cin >> n >> k;
-		sum = 0;
-		memset(arr, 0);
-		f(i, 1, n) cin >> arr[i], sum += arr[i];
-		
-
+		f(i, 1, n){
+			ans += power(i, k) % mod;
+			ans %= mod;
+		}
+		cout << ans << endl;
 	}
 }

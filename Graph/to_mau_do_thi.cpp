@@ -10,42 +10,51 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-int n, m, check;
-int used[1001];
+int color[1001], n, m, x;
 vector<int> ke[1001];
 
-void DFS(int u){
-	if(check) return;
-	used[u] = 1;
-	for(auto v:ke[u]){
-		if(used[v] == 1){
-			check = 1;
-			return;
-		}
-		if(used[v] == 0){
-			DFS(v);
+void init(){
+	memset(color, 0);
+	memset(ke, 0);
+}
+
+int check(int u, int c){
+	for(auto it:ke[u]){
+		if(color[it] == c) return 0;
+	}
+	return 1;
+}
+
+int solve(int c){
+	int ans = 0;
+	f(i, 1, n){
+		if(!color[i] and check(i, c)){
+			color[i] = c;
+			ans++;
 		}
 	}
-	used[u] = 0;
+	return ans;
 }
 
 int main() {
 	int t = 1;
 	cin >> t;
 	while(t--){
-		cin >> n >> m;
-		memset(used, 0);
-		memset(ke, 0);
-		check = 0;
-		f(i, 1, m){
+		cin >> n >> m >> x;
+		init();
+		f(i, 1 , m){
 			int a, b;
 			cin >> a >> b;
 			ke[a].push_back(b);
+			ke[b].push_back(a);
 		}
-		f(i, 1, n){
-			if(!used[i]) DFS(i);
+		int ans = 0, mau = 1;
+		while(ans < n){
+			ans+=solve(mau++);
 		}
-		if(check) cout << "YES\n";
+		f(i, 1, n) cout << color[i] << ' ';
+		cout << endl;
+		if(mau - 1 <= x) cout << "YES\n";
 		else cout << "NO\n";
 	}
 }

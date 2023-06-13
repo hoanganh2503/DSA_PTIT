@@ -10,23 +10,18 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-int n, m, check;
-int used[1001];
 vector<int> ke[1001];
+int n, m, color[1001];
 
-void DFS(int u){
-	if(check) return;
-	used[u] = 1;
-	for(auto v:ke[u]){
-		if(used[v] == 1){
-			check = 1;
-			return;
-		}
-		if(used[v] == 0){
-			DFS(v);
-		}
-	}
-	used[u] = 0;
+bool DFS(int u, int par){
+    color[u] = 1 - color[par];
+    for(int v : ke[u]){
+        if(color[v] == -1){
+            if(!DFS(v, u)) return false; 
+        }
+        else if(color[v] == color[u]) return false;
+    }
+    return true;
 }
 
 int main() {
@@ -34,16 +29,24 @@ int main() {
 	cin >> t;
 	while(t--){
 		cin >> n >> m;
-		memset(used, 0);
 		memset(ke, 0);
-		check = 0;
 		f(i, 1, m){
 			int a, b;
 			cin >> a >> b;
 			ke[a].push_back(b);
+			ke[b].push_back(a);
 		}
+		memset(color, -1);
+		int check = 1;
+		color[0] = 1;
 		f(i, 1, n){
-			if(!used[i]) DFS(i);
+			if(color[i] == -1){
+				if(!DFS(i, 0)){
+					check = false;
+					break;	
+				}
+				
+			}
 		}
 		if(check) cout << "YES\n";
 		else cout << "NO\n";

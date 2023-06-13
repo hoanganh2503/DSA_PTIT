@@ -1,69 +1,94 @@
 #include<bits/stdc++.h>
-#include<vector>
-#define ll long long
-#define f(i,a,b) for(int i = a ; i <= b ; i++)
-#define f_(i,a,b) for(int i = a ; i >= b ; i--)
-#define F(i,a,b) for(int i = a ; i < b ; i++)
-#define memset(arr, n) memset(arr, n, sizeof(arr));
-#define all(x) x.begin(), x.end()
-#define sz size()
-#define pb(x) push_back(x)
 
 using namespace std;
-int n, m, check;
-int parent[1001], used[1001];
-vector<int> ke[1001];
-vector<pair<int, int>> ans[1001];
-vector<int> res;
 
-void init(){
-	f(i, 1, n) parent[i] = 0, used[i] = 0;
-	memset(ke, 0);
-	memset(ans, 0);
-	memset(used, 0);
-	res.clear();
-	check = 0;
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define sz size()
+#define ll long long
+#define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define FORD(i, a, b) for(int i = a; i >= b; i--)
+#define F(i, a, b) for(int i = a; i < b; ++i)
+#define FD(i, a, b) for(int i = a; i > b; --i)
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL);cout.tie(NULL);
+#define vi vector<int>
+#define vll vector<ll>
+#define all(x) (x).begin(), (x).end()
+#define endl '\n'
+
+vector<vector<int>> a;
+bitset<1005> bs;
+bool check;
+int trace[1005];
+int en;
+
+void DFS(int u, int par)
+{
+    if(check)
+        return;
+    bs[u] = 1;
+    for(int &i : a[u])
+    {
+        if(!bs[i])
+        {
+            trace[i] = u;
+            DFS(i, u);
+        }
+        else
+        {
+            if(i != trace[u] and i == 1)
+            {
+                check = 1;
+                en = u;
+                return;
+            }
+        }
+    }
 }
 
-void show(){
-	for(auto it:res)
-		cout << it << ' ';
-	cout << 1 << endl;
-}
-
-void DFS(int u){
-	if(check) return;
-	used[u] = 1;
-	res.push_back(u);
-	for(auto v:ke[u]){
-		if(v == 1 and v != parent[u]) {
-			check = 1;
-			show();
-			return;
-		};
-		if(!used[v]){
-			parent[v] = u;
-			DFS(v);
-		}
-	}
-}
-
-int main() {
-	int t = 1;
-	cin >> t;
-	while(t--){
-		cin >> n >> m;
-		init();
-		f(i, 1, m){
-			int a, b;
-			cin >> a >> b;
-			ke[a].pb(b);
-			ke[b].pb(a);
-		}
-		f(i, 1, n){
-			sort(all(ke[i]));
-		}
-		DFS(1);
-		if(!check) cout << "NO" << endl;
-	}
+int main()
+{
+    faster();
+    int t, v, e, x, y;
+    cin >> t;
+    while(t--)
+    {
+        memset(trace, 0, sizeof(trace));
+        cin >> v >> e;
+        a.resize(v + 5);
+        while(e--)
+        {
+            cin >> x >> y;
+            a[x].pb(y);
+            a[y].pb(x);
+        }
+        for(int i = 1; i <= v; ++i)
+            sort(all(a[i]));
+        check = 0;
+        DFS(1, 0);
+        if(check)
+        {
+            stack<int> st;
+            cout << 1 << ' ';
+            while(trace[en])
+            {
+                st.push(en);
+                en = trace[en];
+            }
+            while(st.sz)
+            {
+                cout << st.top() << ' ';
+                st.pop();
+            }
+            cout << 1;
+        }
+        else
+            cout << "NO";
+        bs.reset();
+        a.clear();
+        cout << endl;
+    }
+    return 0;
 }

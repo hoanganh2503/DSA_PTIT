@@ -20,6 +20,7 @@ map<string, int> mp;
 int check1(vector<students> vt){
 	for(auto it:vt){
 		string name1 = it.name1, s2 = it.dau, name2 = it.name2;
+		cout << mp[name1] << ' ' << mp[name2] << endl;
 		if(!mp[name1] and !mp[name2]){
 			if(s2 == ">"){
 				mp[name1] = 10001;

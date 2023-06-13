@@ -10,23 +10,29 @@
 #define pb(x) push_back(x)
 
 using namespace std;
-int n, m, check;
-int used[1001];
-vector<int> ke[1001];
+int parent[1001], siz[1001];
+vector<pair<int, int>> vt;
+int n, m;
 
-void DFS(int u){
-	if(check) return;
-	used[u] = 1;
-	for(auto v:ke[u]){
-		if(used[v] == 1){
-			check = 1;
-			return;
+void init(){
+	f(i, 1, n) parent[i] = i, siz[i] = 1;
+	vt.clear();
+}
+
+int find_parent(int u){
+	return u == parent[u] ? u : parent[u] = find_parent(parent[u]);
+}
+
+int check(vector<pair<int, int>> vt){
+	for(auto it:vt){
+		int a = find_parent(it.first);
+		int b = find_parent(it.second);
+		if(a == b){
+			return 1;
 		}
-		if(used[v] == 0){
-			DFS(v);
-		}
+		parent[a] = b;
 	}
-	used[u] = 0;
+	return 0;
 }
 
 int main() {
@@ -34,18 +40,13 @@ int main() {
 	cin >> t;
 	while(t--){
 		cin >> n >> m;
-		memset(used, 0);
-		memset(ke, 0);
-		check = 0;
+		init();
 		f(i, 1, m){
 			int a, b;
 			cin >> a >> b;
-			ke[a].push_back(b);
+			vt.push_back({a, b});
 		}
-		f(i, 1, n){
-			if(!used[i]) DFS(i);
-		}
-		if(check) cout << "YES\n";
+		if(check(vt)) cout << "YES\n";
 		else cout << "NO\n";
 	}
 }
